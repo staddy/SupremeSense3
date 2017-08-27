@@ -31,9 +31,11 @@ var jumping = false
 var stopping_jump = false
 var shooting = false
 
+var crouching = false setget setCrouching, getCrouching
+
 var WALK_ACCEL = 800.0
 var WALK_DEACCEL = 800.0
-var WALK_MAX_VELOCITY = 200.0
+var WALK_MAX_VELOCITY = 100.0
 var AIR_ACCEL = 200.0
 var AIR_DEACCEL = 200.0
 var JUMP_VELOCITY = 50.0
@@ -51,6 +53,19 @@ var MAX_SHOOT_POSE_TIME = 0.3
 var floor_h_velocity = 0.0
 var enemy
 
+func setCrouching(c):
+	if(c != crouching):
+		if(not c):
+			if(get_node("AreaUp").get_overlapping_bodies().size() != 1):
+				return
+		get_node("CollisionCrouching").set_trigger(not c)
+		get_node("Collision").set_trigger(c)
+		get_node("AreaUp/CollisionUp").set_trigger(not c)
+		crouching = c
+
+func getCrouching():
+	return crouching
+
 
 func _integrate_forces(s):
 	var lv = s.get_linear_velocity()
@@ -62,6 +77,10 @@ func _integrate_forces(s):
 	# Get the controls
 	var move_left = Input.is_action_pressed("ui_left")
 	var move_right = Input.is_action_pressed("ui_right")
+	if(Input.is_action_pressed("ui_down")):
+		self.crouching = true
+	else:
+		self.crouching = false
 	var jump = Input.is_action_pressed("ui_up")
 	var shoot = Input.is_action_pressed("ui_select")
 	#var spawn = Input.is_action_pressed("spawn")

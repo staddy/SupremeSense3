@@ -1,0 +1,119 @@
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://scenes/character.gd" type="Script" id=1]
+[ext_resource path="res://images/character1.png" type="Texture" id=2]
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 3, 1, 1, 19, 0, 19, -2, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 3, 11, 1, 19, 0, 19, -2, 11 )
+
+[sub_resource type="RayShape2D" id=2]
+
+custom_solver_bias = 0.0
+length = 19.6703
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 3, 10, 3, 0, 6, 0, 6, 10 )
+
+[node name="Character" type="RigidBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 4, -1 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 4 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 4, -1 )
+shapes/1/trigger = true
+shapes/2/shape = SubResource( 2 )
+shapes/2/transform = Matrix32( 0.227426, 0, 0, 0.152514, 4.67456, 16 )
+shapes/2/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 2
+mass = 3.0
+friction = 0.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = true
+continuous_cd = 0
+contacts_reported = 3
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="character1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 3, 9 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+
+transform/pos = Vector2( 4, -1 )
+build_mode = 0
+polygon = Vector2Array( 3, 1, 1, 19, 0, 19, -2, 1 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionCrouching" type="CollisionPolygon2D" parent="."]
+
+transform/pos = Vector2( 4, -1 )
+build_mode = 0
+polygon = Vector2Array( 3, 11, 1, 19, 0, 19, -2, 11 )
+shape_range = Vector2( 1, 1 )
+trigger = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( 4.67456, 16 )
+transform/scale = Vector2( 0.227426, 0.152514 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AreaUp" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 5 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionUp" type="CollisionPolygon2D" parent="AreaUp"]
+
+build_mode = 0
+polygon = Vector2Array( 6, 10, 6, 0, 3, 0, 3, 10 )
+shape_range = Vector2( 0, 0 )
+trigger = true
+
+
