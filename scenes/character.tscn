@@ -123,7 +123,7 @@ __meta__ = {
 
 [node name="WeaponPoint1" type="Position2D" parent="."]
 
-transform/pos = Vector2( 4, 7 )
+transform/pos = Vector2( 4, 5 )
 
 [node name="WeaponPoint2" type="Position2D" parent="."]
 

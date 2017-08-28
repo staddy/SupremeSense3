@@ -70,7 +70,7 @@ signal weaponPointChanged
 func setCrouching(c):
 	if(c != crouching):
 		if(not c):
-			if(get_node("AreaUp").get_overlapping_bodies().size() != 1):
+			if(get_node("AreaUp").get_overlapping_bodies().size() > 1):
 				return
 		get_node("CollisionCrouching").set_trigger(not c)
 		get_node("Collision").set_trigger(c)

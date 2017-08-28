@@ -32,7 +32,10 @@ func _fixed_process(delta):
 
 func shoot():
 	if (canShoot and timer <= 0.0):
+		if(get_node("AreaBlock").get_overlapping_bodies().size() > 1):
+			return
 		var bullet = load("res://scenes/weapons/bullet.tscn").instance()
+		get_node("Laser").add_exception(bullet)
 		bullet.rotation = get_rot()
 		if(get_scale().x < 0):
 			bullet.rotation += (PI)
