@@ -23,7 +23,9 @@ length = 19.6703
 custom_solver_bias = 0.0
 points = Vector2Array( 3, 10, 3, 0, 6, 0, 6, 10 )
 
-[node name="Character" type="RigidBody2D"]
+[node name="Character" type="RigidBody2D" groups=[
+"characters",
+]]
 
 input/pickable = false
 shapes/0/shape = SubResource( 3 )
@@ -108,6 +110,9 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionUp" type="CollisionPolygon2D" parent="AreaUp"]
 
@@ -115,5 +120,8 @@ build_mode = 0
 polygon = Vector2Array( 6, 10, 6, 0, 3, 0, 3, 10 )
 shape_range = Vector2( 0, 0 )
 trigger = true
+__meta__ = {
+"_edit_lock_": true
+}
 
 

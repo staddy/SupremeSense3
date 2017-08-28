@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://scenes/weapons/laser.gd" type="Script" id=1]
+
+[node name="Laser" type="RayCast2D"]
+
+enabled = true
+cast_to = Vector2( 320, 0 )
+layer_mask = 1
+type_mask = 15
+script/script = ExtResource( 1 )
+
+

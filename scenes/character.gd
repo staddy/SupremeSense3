@@ -53,6 +53,14 @@ var MAX_SHOOT_POSE_TIME = 0.3
 var floor_h_velocity = 0.0
 var enemy
 
+var c_move_left = false
+var c_move_right = false
+var c_up = false
+var c_down = false
+var c_crouch = false
+var c_jump = false
+var c_shoot = false
+
 func setCrouching(c):
 	if(c != crouching):
 		if(not c):
@@ -75,14 +83,14 @@ func _integrate_forces(s):
 	var new_siding_left = siding_left
 	
 	# Get the controls
-	var move_left = Input.is_action_pressed("ui_left")
-	var move_right = Input.is_action_pressed("ui_right")
-	if(Input.is_action_pressed("ui_down")):
+	var move_left = c_move_left
+	var move_right = c_move_right
+	if(c_crouch):
 		self.crouching = true
 	else:
 		self.crouching = false
-	var jump = Input.is_action_pressed("ui_up")
-	var shoot = Input.is_action_pressed("ui_select")
+	var jump = c_jump
+	var shoot = c_shoot
 	#var spawn = Input.is_action_pressed("spawn")
 	
 	"""if spawn:
