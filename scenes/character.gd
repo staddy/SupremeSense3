@@ -61,6 +61,9 @@ var c_crouch = false
 var c_jump = false
 var c_shoot = false
 
+signal right
+signal left
+
 func setCrouching(c):
 	if(c != crouching):
 		if(not c):
@@ -149,11 +152,11 @@ func _integrate_forces(s):
 		# tries to change direction, during air control.
 		# This allows for example the player to shoot quickly left then right.
 		if (move_left and not move_right):
-			pass
-			#get_node("sprite").set_scale(Vector2(-1, 1))
+			get_node("Sprite").set_scale(Vector2(-1, 1))
+			emit_signal("left")
 		if (move_right and not move_left):
-			pass
-			#get_node("sprite").set_scale(Vector2(1, 1))
+			get_node("Sprite").set_scale(Vector2(1, 1))
+			emit_signal("right")
 
 		if (lv.y > 0):
 			# Set off the jumping flag if going down
@@ -232,11 +235,11 @@ func _integrate_forces(s):
 	# Update siding
 	if (new_siding_left != siding_left):
 		if (new_siding_left):
-			pass
-			#get_node("sprite").set_scale(Vector2(-1, 1))
+			get_node("Sprite").set_scale(Vector2(-1, 1))
+			emit_signal("left")
 		else:
-			pass
-			#get_node("sprite").set_scale(Vector2(1, 1))
+			get_node("Sprite").set_scale(Vector2(1, 1))
+			emit_signal("right")
 		
 		siding_left = new_siding_left
 	

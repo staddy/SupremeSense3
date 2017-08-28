@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://scenes/weapons/weapon.gd" type="Script" id=1]
-[ext_resource path="res://scenes/weapons/laser.tscn" type="PackedScene" id=2]
-[ext_resource path="res://images/gun.png" type="Texture" id=3]
+[ext_resource path="res://images/gun.png" type="Texture" id=1]
+[ext_resource path="res://scenes/weapons/weapon.gd" type="Script" id=2]
+[ext_resource path="res://scenes/weapons/laser.tscn" type="PackedScene" id=3]
 [ext_resource path="res://sfx/gun_shot.smp" type="Sample" id=4]
 
 [sub_resource type="SampleLibrary" id=1]
@@ -14,24 +14,23 @@ samples/gun_shot = {
 "sample": ExtResource( 4 )
 }
 
-[node name="Weapon" type="Node2D"]
+[node name="Weapon" type="Sprite"]
 
-script/script = ExtResource( 1 )
+transform/pos = Vector2( 6, 3 )
+texture = ExtResource( 1 )
+offset = Vector2( 6, 1 )
+script/script = ExtResource( 2 )
 
-[node name="Laser" parent="." instance=ExtResource( 2 )]
+[node name="Laser" parent="." instance=ExtResource( 3 )]
 
-[node name="gun" type="Sprite" parent="."]
+[node name="OutPoint" type="Position2D" parent="."]
 
-transform/pos = Vector2( 12, 4 )
-texture = ExtResource( 3 )
-
-[node name="OutPoint" type="Node2D" parent="."]
-
-transform/pos = Vector2( 23, 2 )
+transform/pos = Vector2( 17, -1 )
 transform/scale = Vector2( 0.03125, 0.03125 )
 
 [node name="Sound" type="SamplePlayer2D" parent="."]
 
+transform/pos = Vector2( 6, 1 )
 params/volume_db = 0.0
 params/pitch_scale = 1.0
 params/attenuation/min_distance = 1.0
