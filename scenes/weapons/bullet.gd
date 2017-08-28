@@ -18,7 +18,6 @@ func _on_body_enter(body):
 	#	body.damage(damage)
 	get_node("Sound").play("hit")
 	set_max_contacts_reported(0)
-	set_contact_monitor(false)
 	get_node("CollisionShape").set_trigger(true)
 	get_node("CollisionShape2").set_trigger(true)
 	get_node("CollisionShape3").set_trigger(true)

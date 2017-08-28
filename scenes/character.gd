@@ -61,8 +61,11 @@ var c_crouch = false
 var c_jump = false
 var c_shoot = false
 
+onready var weaponPoint = get_node("WeaponPoint1").get_pos()
+
 signal right
 signal left
+signal weaponPointChanged
 
 func setCrouching(c):
 	if(c != crouching):
@@ -72,6 +75,11 @@ func setCrouching(c):
 		get_node("CollisionCrouching").set_trigger(not c)
 		get_node("Collision").set_trigger(c)
 		get_node("AreaUp/CollisionUp").set_trigger(not c)
+		if(c):
+			weaponPoint = get_node("WeaponPoint2").get_pos()
+		else:
+			weaponPoint = get_node("WeaponPoint1").get_pos()
+		emit_signal("weaponPointChanged", [weaponPoint])
 		crouching = c
 
 func getCrouching():

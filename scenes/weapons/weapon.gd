@@ -14,6 +14,7 @@ var looksRight = true
 func _ready():
 	get_parent().connect("right", self, "right")
 	get_parent().connect("left", self, "left")
+	get_parent().connect("weaponPointChanged", self, "changePos")
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -52,3 +53,6 @@ func left():
 		set_rot(-get_rot())
 	set_scale(Vector2(-1, 1))
 	looksRight = false
+
+func changePos(p):
+	set_pos(p[0])
