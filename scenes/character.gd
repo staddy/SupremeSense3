@@ -252,6 +252,9 @@ func _integrate_forces(s):
 		
 		siding_left = new_siding_left
 	
+	if(self.crouching):
+		new_anim += "_crouch"
+	
 	# Change animation
 	if (new_anim != anim):
 		anim = new_anim
