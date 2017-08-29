@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://scenes/character.gd" type="Script" id=1]
-[ext_resource path="res://images/character1.png" type="Texture" id=2]
+[ext_resource path="res://images/character.png" type="Texture" id=2]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -22,6 +22,57 @@ length = 19.6703
 
 custom_solver_bias = 0.0
 points = Vector2Array( 3, 10, 3, 0, 6, 0, 6, 10 )
+
+[sub_resource type="Animation" id=7]
+
+resource/name = "jumping"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+
+[sub_resource type="Animation" id=5]
+
+resource/name = "run"
+length = 1.75
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 2, 3, 4, 5, 6, 7, 8, 8 ]
+}
+
+[sub_resource type="Animation" id=6]
+
+resource/name = "stay"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
 
 [node name="Character" type="RigidBody2D" groups=[
 "characters",
@@ -63,6 +114,8 @@ __meta__ = {
 
 transform/pos = Vector2( 4, 9 )
 texture = ExtResource( 2 )
+vframes = 2
+hframes = 9
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]
 
@@ -128,5 +181,18 @@ transform/pos = Vector2( 4, 5 )
 [node name="WeaponPoint2" type="Position2D" parent="."]
 
 transform/pos = Vector2( 4, 13 )
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/jumping = SubResource( 7 )
+anims/run = SubResource( 5 )
+anims/stay = SubResource( 6 )
+playback/active = true
+playback/speed = 4.0
+blend_times = [  ]
+autoplay = ""
 
 

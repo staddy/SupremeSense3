@@ -205,15 +205,15 @@ func _integrate_forces(s):
 		if (jumping):
 			new_anim = "jumping"
 		elif (abs(lv.x) < 0.1):
-			if (shoot_time < MAX_SHOOT_POSE_TIME):
-				new_anim = "idle_weapon"
-			else:
-				new_anim = "idle"
+			#if (shoot_time < MAX_SHOOT_POSE_TIME):
+			#	new_anim = "stay_weapon"
+			#else:
+			new_anim = "stay"
 		else:
-			if (shoot_time < MAX_SHOOT_POSE_TIME):
-				new_anim = "run_weapon"
-			else:
-				new_anim = "run"
+			#if (shoot_time < MAX_SHOOT_POSE_TIME):
+			#	new_anim = "run_weapon"
+			#else:
+			new_anim = "run"
 	else:
 		# Process logic when the character is in the air
 		if (move_left and not move_right):
@@ -229,7 +229,8 @@ func _integrate_forces(s):
 				xv = 0
 			lv.x = sign(lv.x)*xv
 		
-		if (lv.y < 0):
+		new_anim = "jumping"
+		"""if (lv.y < 0):
 			if (shoot_time < MAX_SHOOT_POSE_TIME):
 				new_anim = "jumping_weapon"
 			else:
@@ -238,7 +239,7 @@ func _integrate_forces(s):
 			if (shoot_time < MAX_SHOOT_POSE_TIME):
 				new_anim = "falling_weapon"
 			else:
-				new_anim = "falling"
+				new_anim = "falling" """
 	
 	# Update siding
 	if (new_siding_left != siding_left):
@@ -254,7 +255,7 @@ func _integrate_forces(s):
 	# Change animation
 	if (new_anim != anim):
 		anim = new_anim
-		#get_node("anim").play(anim)
+		get_node("Animation").play(anim)
 	
 	shooting = shoot
 	
