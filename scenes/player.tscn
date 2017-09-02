@@ -6,48 +6,6 @@
 
 [node name="Player" instance=ExtResource( 1 )]
 
-[node name="shin" parent="Sprite/leg2"]
-
-transform/scale = Vector2( 1, 1 )
-
-[node name="foot" parent="Sprite/leg2/shin"]
-
-transform/scale = Vector2( 1, 1 )
-
-[node name="Position2D" parent="Sprite/leg2/shin/foot"]
-
-transform/scale = Vector2( 1, 1 )
-
-[node name="Position2D" parent="Sprite/body/arm/hand"]
-
-transform/scale = Vector2( 1, 1 )
-
-[node name="Position2D" parent="Sprite/body/arm2/hand"]
-
-transform/scale = Vector2( 1, 1 )
-
-[node name="Position2D" parent="Sprite/body/head"]
-
-transform/scale = Vector2( 1, 1 )
-
-[node name="leg" parent="Sprite"]
-
-transform/rot = 39.1419
-
-[node name="shin" parent="Sprite/leg"]
-
-transform/pos = Vector2( 3.33786e-06, 3 )
-transform/rot = -64.626
-transform/scale = Vector2( 1, 1 )
-
-[node name="foot" parent="Sprite/leg/shin"]
-
-transform/scale = Vector2( 1, 1 )
-
-[node name="Position2D" parent="Sprite/leg/shin/foot"]
-
-transform/scale = Vector2( 1, 1 )
-
 [node name="input" type="Node2D" parent="."]
 
 script/script = ExtResource( 2 )

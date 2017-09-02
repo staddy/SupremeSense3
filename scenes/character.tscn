@@ -475,6 +475,7 @@ tracks/0/keys = {
 "characters",
 ]]
 
+transform/pos = Vector2( 0.0694427, 0.0694427 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 4, -1 )
@@ -601,8 +602,6 @@ autoplay = ""
 [node name="Sprite" type="Sprite" parent="."]
 
 transform/pos = Vector2( 4.5, 10.8719 )
-transform/scale = Vector2( 1, 1 )
-texture = ExtResource( 3 )
 __meta__ = {
 "_edit_ik_": true,
 "_edit_lock_": true
@@ -611,7 +610,6 @@ __meta__ = {
 [node name="hip" type="Sprite" parent="Sprite"]
 
 transform/rot = 3.56977
-transform/scale = Vector2( 1, 1 )
 texture = ExtResource( 3 )
 __meta__ = {
 "_edit_ik_": true,
@@ -631,7 +629,6 @@ __meta__ = {
 
 [node name="shin" type="Sprite" parent="Sprite/hip/leg2"]
 
-editor/display_folded = true
 transform/pos = Vector2( -3.8147e-06, 3 )
 transform/rot = -7.94529
 texture = ExtResource( 5 )
@@ -683,8 +680,7 @@ texture = ExtResource( 8 )
 offset = Vector2( 0, 2 )
 __meta__ = {
 "_edit_bone_": true,
-"_edit_ik_": true,
-"_edit_lock_": true
+"_edit_ik_": true
 }
 
 [node name="hand" type="Sprite" parent="Sprite/hip/body/arm"]
