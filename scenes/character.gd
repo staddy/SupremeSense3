@@ -77,10 +77,10 @@ func setCrouching(c):
 		get_node("AreaUp/CollisionUp").set_trigger(not c)
 		if(c):
 			weaponPoint = get_node("WeaponPoint2").get_pos()
-			anim = "stay_crouch"
+			get_node("AnimationTreePlayer").oneshot_node_start("oneshot")
 		else:
 			weaponPoint = get_node("WeaponPoint1").get_pos()
-			anim = "crouch_stay"
+			get_node("AnimationTreePlayer").oneshot_node_start("oneshot2")
 		emit_signal("weaponPointChanged", [weaponPoint])
 		crouching = c
 
@@ -211,11 +211,15 @@ func _integrate_forces(s):
 			#	new_anim = "stay_weapon"
 			#else:
 			new_anim = "idle"
+			get_node("AnimationTreePlayer").transition_node_set_current("transition", 0)
+			get_node("AnimationTreePlayer").transition_node_set_current("transition_crouch", 0)
 		else:
 			#if (shoot_time < MAX_SHOOT_POSE_TIME):
 			#	new_anim = "run_weapon"
 			#else:
 			new_anim = "run"
+			get_node("AnimationTreePlayer").transition_node_set_current("transition", 1)
+			get_node("AnimationTreePlayer").transition_node_set_current("transition_crouch", 1)
 	else:
 		# Process logic when the character is in the air
 		if (move_left and not move_right):
@@ -256,11 +260,14 @@ func _integrate_forces(s):
 	
 	if(self.crouching):
 		new_anim += "_crouch"
+		get_node("AnimationTreePlayer").transition_node_set_current("transition2", 1)
+	else:
+		get_node("AnimationTreePlayer").transition_node_set_current("transition2", 0)
 	
 	# Change animation
 	if (new_anim != anim):
 		anim = new_anim
-		get_node("Animation").play(anim)
+		#get_node("Animation").play(anim)
 	
 	shooting = shoot
 	
@@ -275,7 +282,8 @@ func _integrate_forces(s):
 
 
 func _ready():
-	pass
+	get_node("AnimationTreePlayer").set_active(true)
+	#pass
 	#set_process_input(true)
 	#set_fixed_process(true)
 	#enemy = ResourceLoader.load("res://enemy.tscn")
