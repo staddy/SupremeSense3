@@ -35,7 +35,9 @@ var crouching = false setget setCrouching, getCrouching
 
 var WALK_ACCEL = 800.0
 var WALK_DEACCEL = 800.0
-var WALK_MAX_VELOCITY = 100.0
+var WALK_MAX_VELOCITY_CROUCH = 30.0
+var WALK_MAX_VELOCITY_STAY = 100.0
+var WALK_MAX_VELOCITY = WALK_MAX_VELOCITY_STAY
 var AIR_ACCEL = 200.0
 var AIR_DEACCEL = 200.0
 var JUMP_VELOCITY = 50.0
@@ -76,9 +78,11 @@ func setCrouching(c):
 		get_node("Collision").set_trigger(c)
 		get_node("AreaUp/CollisionUp").set_trigger(not c)
 		if(c):
+			WALK_MAX_VELOCITY = WALK_MAX_VELOCITY_CROUCH
 			weaponPoint = get_node("WeaponPoint2").get_pos()
 			get_node("AnimationTreePlayer").oneshot_node_start("oneshot")
 		else:
+			WALK_MAX_VELOCITY = WALK_MAX_VELOCITY_STAY
 			weaponPoint = get_node("WeaponPoint1").get_pos()
 			get_node("AnimationTreePlayer").oneshot_node_start("oneshot2")
 		emit_signal("weaponPointChanged", [weaponPoint])
@@ -103,6 +107,8 @@ func _integrate_forces(s):
 	else:
 		self.crouching = false
 	var jump = c_jump
+	if(self.crouching):
+		jump = false
 	var shoot = c_shoot
 	#var spawn = Input.is_action_pressed("spawn")
 	
@@ -177,6 +183,7 @@ func _integrate_forces(s):
 		if (stopping_jump):
 			lv.y += STOP_JUMP_FORCE*step
 	
+	#get_node("AnimationTreePlayer").transition_node_set_current("transition_jump", 0)
 	if (on_floor):
 		# Process logic when character is on floor
 		if (move_left and not move_right):
@@ -205,12 +212,14 @@ func _integrate_forces(s):
 		elif (lv.x > 0 and move_right):
 			new_siding_left = false
 		if (jumping):
-			new_anim = "jumping"
+			#new_anim = "jumping"
+			get_node("AnimationTreePlayer").transition_node_set_current("transition_jump", 1)
 		elif (abs(lv.x) < 0.1) and anim != "crouch_stay" and anim != "stay_crouch":
 			#if (shoot_time < MAX_SHOOT_POSE_TIME):
 			#	new_anim = "stay_weapon"
 			#else:
 			new_anim = "idle"
+			get_node("AnimationTreePlayer").transition_node_set_current("transition_jump", 0)
 			get_node("AnimationTreePlayer").transition_node_set_current("transition", 0)
 			get_node("AnimationTreePlayer").transition_node_set_current("transition_crouch", 0)
 		else:
@@ -218,6 +227,7 @@ func _integrate_forces(s):
 			#	new_anim = "run_weapon"
 			#else:
 			new_anim = "run"
+			get_node("AnimationTreePlayer").transition_node_set_current("transition_jump", 0)
 			get_node("AnimationTreePlayer").transition_node_set_current("transition", 1)
 			get_node("AnimationTreePlayer").transition_node_set_current("transition_crouch", 1)
 	else:
@@ -235,7 +245,8 @@ func _integrate_forces(s):
 				xv = 0
 			lv.x = sign(lv.x)*xv
 		
-		new_anim = "jumping"
+		#new_anim = "jumping"
+		get_node("AnimationTreePlayer").transition_node_set_current("transition_jump", 1)
 		"""if (lv.y < 0):
 			if (shoot_time < MAX_SHOOT_POSE_TIME):
 				new_anim = "jumping_weapon"
