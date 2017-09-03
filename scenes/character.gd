@@ -77,8 +77,10 @@ func setCrouching(c):
 		get_node("AreaUp/CollisionUp").set_trigger(not c)
 		if(c):
 			weaponPoint = get_node("WeaponPoint2").get_pos()
+			anim = "stay_crouch"
 		else:
 			weaponPoint = get_node("WeaponPoint1").get_pos()
+			anim = "crouch_stay"
 		emit_signal("weaponPointChanged", [weaponPoint])
 		crouching = c
 
@@ -204,11 +206,11 @@ func _integrate_forces(s):
 			new_siding_left = false
 		if (jumping):
 			new_anim = "jumping"
-		elif (abs(lv.x) < 0.1):
+		elif (abs(lv.x) < 0.1) and anim != "crouch_stay" and anim != "stay_crouch":
 			#if (shoot_time < MAX_SHOOT_POSE_TIME):
 			#	new_anim = "stay_weapon"
 			#else:
-			new_anim = "stay"
+			new_anim = "idle"
 		else:
 			#if (shoot_time < MAX_SHOOT_POSE_TIME):
 			#	new_anim = "run_weapon"
@@ -273,8 +275,8 @@ func _integrate_forces(s):
 
 
 func _ready():
-	#set_process_input(true)
 	pass
+	#set_process_input(true)
 	#set_fixed_process(true)
 	#enemy = ResourceLoader.load("res://enemy.tscn")
 	
