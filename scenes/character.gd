@@ -30,6 +30,7 @@ var siding_left = false
 var jumping = false
 var stopping_jump = false
 var shooting = false
+var on_floor = false
 
 var crouching = false setget setCrouching, getCrouching
 
@@ -102,7 +103,7 @@ func _integrate_forces(s):
 	# Get the controls
 	var move_left = c_move_left
 	var move_right = c_move_right
-	if(c_crouch):
+	if(c_crouch && on_floor):
 		self.crouching = true
 	else:
 		self.crouching = false
@@ -160,7 +161,7 @@ func _integrate_forces(s):
 	else:
 		airborne_time += step # Time it spent in the air
 	
-	var on_floor = airborne_time < MAX_FLOOR_AIRBORNE_TIME
+	on_floor = airborne_time < MAX_FLOOR_AIRBORNE_TIME
 
 	# Process jump
 	if (jumping):
