@@ -141,10 +141,12 @@ transform/pos = Vector2( 58.6958, 131.78 )
 [node name="Player" parent="Map" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 182.529, 53.4587 )
+collision/layers = 1
 
 [node name="Player 2" parent="Map" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 145.4, 80.2 )
+collision/layers = 1
 
 [node name="Character" parent="Map" instance=ExtResource( 5 )]
 
@@ -157,6 +159,7 @@ transform/rot = -90.1608
 
 [node name="TextureFrame" type="TextureFrame" parent="."]
 
+visibility/visible = false
 material/material = SubResource( 2 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -179,7 +182,7 @@ playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/default = SubResource( 3 )
-playback/active = true
+playback/active = false
 playback/speed = 32.0
 blend_times = [  ]
 autoplay = "default"

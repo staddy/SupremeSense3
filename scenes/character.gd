@@ -34,14 +34,14 @@ var on_floor = false
 
 var crouching = false setget setCrouching, getCrouching
 
-var WALK_ACCEL = 800.0
-var WALK_DEACCEL = 800.0
+var WALK_ACCEL = 1000.0
+var WALK_DEACCEL = 1000.0
 var WALK_MAX_VELOCITY_CROUCH = 30.0
 var WALK_MAX_VELOCITY_STAY = 100.0
 var WALK_MAX_VELOCITY = WALK_MAX_VELOCITY_STAY
-var AIR_ACCEL = 200.0
-var AIR_DEACCEL = 200.0
-var JUMP_VELOCITY = 50.0
+var AIR_ACCEL = 400.0
+var AIR_DEACCEL = 400.0
+var JUMP_VELOCITY = 200.0
 var STOP_JUMP_FORCE = 900.0
 
 var MAX_FLOOR_AIRBORNE_TIME = 0.07
@@ -294,6 +294,8 @@ func _integrate_forces(s):
 
 
 func _ready():
+	get_node("AreaUp").set_layer_mask(self.get_layer_mask())
+	get_node("AreaUp").set_collision_mask(self.get_collision_mask())
 	get_node("AnimationTreePlayer").set_active(true)
 	#pass
 	#set_process_input(true)

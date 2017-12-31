@@ -6,6 +6,135 @@
 
 [node name="Player" instance=ExtResource( 1 )]
 
+collision/mask = 0
+
+[node name="AnimationTreePlayer" parent="."]
+
+data = {
+"active": false,
+"connections": [ "scale", "out", 0, "anim 2", "transition", 0, "anim 4", "transition", 1, "anim 3", "transition_crouch", 0, "scale 2", "transition_crouch", 1, "transition2", "transition_jump", 0, "jump", "transition_jump", 1, "oneshot", "oneshot2", 0, "crouch_stay", "oneshot2", 1, "transition", "transition2", 0, "transition_crouch", "transition2", 1, "transition_jump", "oneshot", 0, "stay_crouch", "oneshot", 1, "anim 5", "scale 2", 0, "oneshot2", "scale", 0 ],
+"master": NodePath("../Animation"),
+"nodes": [ {
+"id": "out",
+"pos": Vector2( 833, 24 ),
+"type": "output"
+}, {
+"id": "transition",
+"pos": Vector2( 160, 71 ),
+"transitions": [ {
+"auto_advance": false
+}, {
+"auto_advance": false
+} ],
+"type": "transition",
+"xfade": 0.0
+}, {
+"filter": [  ],
+"from": "run",
+"id": "anim 4",
+"pos": Vector2( 5, 131 ),
+"type": "animation"
+}, {
+"filter": [  ],
+"from": "idle",
+"id": "anim 2",
+"pos": Vector2( 5, 39 ),
+"type": "animation"
+}, {
+"filter": [  ],
+"from": "crouch_stay",
+"id": "crouch_stay",
+"pos": Vector2( 475, 310 ),
+"type": "animation"
+}, {
+"filter": [  ],
+"from": "idle_crouch",
+"id": "anim 3",
+"pos": Vector2( 5, 236 ),
+"type": "animation"
+}, {
+"id": "transition_crouch",
+"pos": Vector2( 159, 254 ),
+"transitions": [ {
+"auto_advance": false
+}, {
+"auto_advance": false
+} ],
+"type": "transition",
+"xfade": 0.0
+}, {
+"id": "transition_jump",
+"pos": Vector2( 385, 9 ),
+"transitions": [ {
+"auto_advance": false
+}, {
+"auto_advance": false
+} ],
+"type": "transition",
+"xfade": 0.0
+}, {
+"autorestart": false,
+"autorestart_delay": 1.0,
+"autorestart_random_delay": 0.878431,
+"fade_in": 0.0,
+"fade_out": 0.0,
+"filter": [  ],
+"id": "oneshot2",
+"mix": false,
+"pos": Vector2( 619, 16 ),
+"type": "oneshot"
+}, {
+"filter": [  ],
+"from": "jumping",
+"id": "jump",
+"pos": Vector2( 592, 194 ),
+"type": "animation"
+}, {
+"id": "transition2",
+"pos": Vector2( 284, 51 ),
+"transitions": [ {
+"auto_advance": false
+}, {
+"auto_advance": false
+} ],
+"type": "transition",
+"xfade": 0.0
+}, {
+"filter": [  ],
+"from": "stay_crouch",
+"id": "stay_crouch",
+"pos": Vector2( 342, 241 ),
+"type": "animation"
+}, {
+"autorestart": false,
+"autorestart_delay": 1.0,
+"autorestart_random_delay": 1.0,
+"fade_in": 0.0,
+"fade_out": 0.0,
+"filter": [  ],
+"id": "oneshot",
+"mix": false,
+"pos": Vector2( 531, 11 ),
+"type": "oneshot"
+}, {
+"id": "scale 2",
+"pos": Vector2( 108, 186 ),
+"scale": 0.5,
+"type": "timescale"
+}, {
+"filter": [  ],
+"from": "run_crouch",
+"id": "anim 5",
+"pos": Vector2( 5, 327 ),
+"type": "animation"
+}, {
+"id": "scale",
+"pos": Vector2( 725, 21 ),
+"scale": 4.0,
+"type": "timescale"
+} ]
+}
+
 [node name="input" type="Node2D" parent="."]
 
 script/script = ExtResource( 2 )
@@ -15,7 +144,6 @@ __meta__ = {
 
 [node name="Weapon" parent="." instance=ExtResource( 3 )]
 
-visibility/visible = false
 transform/pos = Vector2( 4, 5 )
 
 
