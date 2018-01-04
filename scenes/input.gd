@@ -17,7 +17,7 @@ func _fixed_process(delta):
 	get_parent().c_down = Input.is_action_pressed("ui_down")
 	get_parent().c_crouch = Input.is_action_pressed("ui_crouch")
 	get_parent().c_jump = Input.is_action_pressed("ui_jump")
-	if(get_parent().get_node("Weapon") != null):
-		get_parent().get_node("Weapon").c_up = Input.is_action_pressed("ui_up")
-		get_parent().get_node("Weapon").c_down = Input.is_action_pressed("ui_down")
-		get_parent().get_node("Weapon").c_shoot = Input.is_action_pressed("ui_shoot")
+	if(get_parent().get_node("Sprite/Weapon") != null):
+		get_parent().get_node("Sprite/Weapon").c_up = Input.is_action_pressed("ui_up")
+		get_parent().get_node("Sprite/Weapon").c_down = Input.is_action_pressed("ui_down")
+		get_parent().get_node("Sprite/Weapon").c_shoot = Input.is_action_pressed("ui_shoot")

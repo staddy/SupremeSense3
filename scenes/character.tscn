@@ -2786,7 +2786,6 @@ tracks/35/keys = {
 "characters",
 ]]
 
-transform/pos = Vector2( 0.0694427, 0.0694427 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 4, -1 )
@@ -2797,8 +2796,8 @@ shapes/1/trigger = true
 shapes/2/shape = SubResource( 3 )
 shapes/2/transform = Matrix32( 0.227426, 0, 0, 0.152514, 4.5, 16 )
 shapes/2/trigger = false
-collision/layers = 0
-collision/mask = 1
+collision/layers = 2
+collision/mask = 0
 mode = 2
 mass = 3.0
 friction = 0.0
@@ -2854,6 +2853,7 @@ __meta__ = {
 
 [node name="AreaUp" type="Area2D" parent="."]
 
+editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 4 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -2873,22 +2873,6 @@ polygon = Vector2Array( 6, 10, 6, 0, 3, 0, 3, 10 )
 shape_range = Vector2( 0, 0 )
 trigger = true
 
-[node name="WeaponPoint1" type="Position2D" parent="."]
-
-transform/pos = Vector2( 4.5, 5 )
-transform/scale = Vector2( 0.5, 0.5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="WeaponPoint2" type="Position2D" parent="."]
-
-transform/pos = Vector2( 4.5, 13 )
-transform/scale = Vector2( 0.5, 0.5 )
-__meta__ = {
-"_edit_lock_": true
-}
-
 [node name="Animation" type="AnimationPlayer" parent="."]
 
 playback/process_mode = 1
@@ -2907,9 +2891,8 @@ playback/speed = 4.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite" type="Node2D" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 4.5, 11.5 )
 z/z = 3
 __meta__ = {
@@ -2919,8 +2902,10 @@ __meta__ = {
 
 [node name="hip" type="Sprite" parent="Sprite"]
 
+editor/display_folded = true
 transform/pos = Vector2( 3.72529e-09, 0 )
 transform/rot = 3.56977
+transform/scale = Vector2( 1, 1 )
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_ik_": true
@@ -3135,6 +3120,19 @@ __meta__ = {
 "_edit_bone_": true
 }
 
+[node name="WeaponPoint1" type="Position2D" parent="Sprite"]
+
+transform/pos = Vector2( 23.5, -8.5 )
+transform/scale = Vector2( 0.5, 0.5 )
+
+[node name="WeaponPoint2" type="Position2D" parent="Sprite"]
+
+transform/pos = Vector2( 0, 1.5 )
+transform/scale = Vector2( 0.5, 0.5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="AnimationTreePlayer" type="AnimationTreePlayer" parent="."]
 
 playback/process_mode = 1
@@ -3142,7 +3140,7 @@ base_path = NodePath("..")
 master_player = NodePath("../Animation")
 data = {
 "active": false,
-"connections": [ "scale", "out", 0, "anim 2", "transition", 0, "anim 4", "transition", 1, "anim 3", "transition_crouch", 0, "scale 2", "transition_crouch", 1, "transition2", "transition_jump", 0, "jump", "transition_jump", 1, "oneshot", "oneshot2", 0, "crouch_stay", "oneshot2", 1, "transition", "transition2", 0, "transition_crouch", "transition2", 1, "transition_jump", "oneshot", 0, "stay_crouch", "oneshot", 1, "anim 5", "scale 2", 0, "oneshot2", "scale", 0 ],
+"connections": [ "scale", "out", 0, "anim 2", "transition", 0, "anim 4", "transition", 1, "oneshot", "oneshot2", 0, "crouch_stay", "oneshot2", 1, "transition", "transition2", 0, "transition_crouch", "transition2", 1, "transition2", "transition_jump", 0, "jump", "transition_jump", 1, "transition_jump", "oneshot", 0, "stay_crouch", "oneshot", 1, "anim 3", "transition_crouch", 0, "scale 2", "transition_crouch", 1, "anim 5", "scale 2", 0, "oneshot2", "scale", 0 ],
 "master": NodePath("../Animation"),
 "nodes": [ {
 "id": "out",
@@ -3151,50 +3149,6 @@ data = {
 }, {
 "id": "transition",
 "pos": Vector2( 160, 71 ),
-"transitions": [ {
-"auto_advance": false
-}, {
-"auto_advance": false
-} ],
-"type": "transition",
-"xfade": 0.0
-}, {
-"filter": [  ],
-"from": "run",
-"id": "anim 4",
-"pos": Vector2( 5, 131 ),
-"type": "animation"
-}, {
-"filter": [  ],
-"from": "idle",
-"id": "anim 2",
-"pos": Vector2( 5, 39 ),
-"type": "animation"
-}, {
-"filter": [  ],
-"from": "crouch_stay",
-"id": "crouch_stay",
-"pos": Vector2( 475, 310 ),
-"type": "animation"
-}, {
-"filter": [  ],
-"from": "idle_crouch",
-"id": "anim 3",
-"pos": Vector2( 5, 236 ),
-"type": "animation"
-}, {
-"id": "transition_crouch",
-"pos": Vector2( 159, 254 ),
-"transitions": [ {
-"auto_advance": false
-}, {
-"auto_advance": false
-} ],
-"type": "transition",
-"xfade": 0.0
-}, {
-"id": "transition_jump",
-"pos": Vector2( 385, 9 ),
 "transitions": [ {
 "auto_advance": false
 }, {
@@ -3214,12 +3168,6 @@ data = {
 "pos": Vector2( 619, 16 ),
 "type": "oneshot"
 }, {
-"filter": [  ],
-"from": "jumping",
-"id": "jump",
-"pos": Vector2( 592, 194 ),
-"type": "animation"
-}, {
 "id": "transition2",
 "pos": Vector2( 284, 51 ),
 "transitions": [ {
@@ -3236,6 +3184,34 @@ data = {
 "pos": Vector2( 342, 241 ),
 "type": "animation"
 }, {
+"filter": [  ],
+"from": "jumping",
+"id": "jump",
+"pos": Vector2( 592, 194 ),
+"type": "animation"
+}, {
+"id": "transition_jump",
+"pos": Vector2( 385, 9 ),
+"transitions": [ {
+"auto_advance": false
+}, {
+"auto_advance": false
+} ],
+"type": "transition",
+"xfade": 0.0
+}, {
+"filter": [  ],
+"from": "idle_crouch",
+"id": "anim 3",
+"pos": Vector2( 5, 236 ),
+"type": "animation"
+}, {
+"filter": [  ],
+"from": "idle",
+"id": "anim 2",
+"pos": Vector2( 5, 39 ),
+"type": "animation"
+}, {
 "autorestart": false,
 "autorestart_delay": 1.0,
 "autorestart_random_delay": 1.0,
@@ -3246,6 +3222,28 @@ data = {
 "mix": false,
 "pos": Vector2( 531, 11 ),
 "type": "oneshot"
+}, {
+"filter": [  ],
+"from": "run",
+"id": "anim 4",
+"pos": Vector2( 5, 131 ),
+"type": "animation"
+}, {
+"filter": [  ],
+"from": "crouch_stay",
+"id": "crouch_stay",
+"pos": Vector2( 475, 310 ),
+"type": "animation"
+}, {
+"id": "transition_crouch",
+"pos": Vector2( 159, 254 ),
+"transitions": [ {
+"auto_advance": false
+}, {
+"auto_advance": false
+} ],
+"type": "transition",
+"xfade": 0.0
 }, {
 "id": "scale 2",
 "pos": Vector2( 108, 186 ),

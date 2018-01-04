@@ -24,6 +24,8 @@ extends RigidBody2D
 # -Friction cant be used, so floor velocity must be considered
 #  for moving platforms.
 
+enum {STATE_GROUND}
+
 # Member variables
 var anim = ""
 var siding_left = false
@@ -41,7 +43,7 @@ var WALK_MAX_VELOCITY_STAY = 100.0
 var WALK_MAX_VELOCITY = WALK_MAX_VELOCITY_STAY
 var AIR_ACCEL = 400.0
 var AIR_DEACCEL = 400.0
-var JUMP_VELOCITY = 200.0
+var JUMP_VELOCITY = 110.0
 var STOP_JUMP_FORCE = 900.0
 
 var MAX_FLOOR_AIRBORNE_TIME = 0.07
@@ -64,7 +66,7 @@ var c_crouch = false
 var c_jump = false
 var c_shoot = false
 
-onready var weaponPoint = get_node("WeaponPoint1").get_pos()
+onready var weaponPoint = get_node("Sprite/WeaponPoint1").get_pos()
 
 signal right
 signal left
@@ -73,18 +75,18 @@ signal weaponPointChanged
 func setCrouching(c):
 	if(c != crouching):
 		if(not c):
-			if(get_node("AreaUp").get_overlapping_bodies().size() > 1):
+			if(get_node("AreaUp").get_overlapping_bodies().size() > 0):
 				return
 		get_node("CollisionCrouching").set_trigger(not c)
 		get_node("Collision").set_trigger(c)
 		get_node("AreaUp/CollisionUp").set_trigger(not c)
 		if(c):
 			WALK_MAX_VELOCITY = WALK_MAX_VELOCITY_CROUCH
-			weaponPoint = get_node("WeaponPoint2").get_pos()
+			weaponPoint = get_node("Sprite/WeaponPoint2").get_pos()
 			get_node("AnimationTreePlayer").oneshot_node_start("oneshot")
 		else:
 			WALK_MAX_VELOCITY = WALK_MAX_VELOCITY_STAY
-			weaponPoint = get_node("WeaponPoint1").get_pos()
+			weaponPoint = get_node("Sprite/WeaponPoint1").get_pos()
 			get_node("AnimationTreePlayer").oneshot_node_start("oneshot2")
 		emit_signal("weaponPointChanged", [weaponPoint])
 		crouching = c
@@ -294,8 +296,8 @@ func _integrate_forces(s):
 
 
 func _ready():
-	get_node("AreaUp").set_layer_mask(self.get_layer_mask())
-	get_node("AreaUp").set_collision_mask(self.get_collision_mask())
+	#get_node("AreaUp").set_layer_mask(self.get_layer_mask())
+	#get_node("AreaUp").set_collision_mask(self.get_collision_mask())
 	get_node("AnimationTreePlayer").set_active(true)
 	#pass
 	#set_process_input(true)
