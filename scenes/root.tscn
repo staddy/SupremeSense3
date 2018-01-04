@@ -1,12 +1,11 @@
-[gd_scene load_steps=10 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://scenes/root.gd" type="Script" id=1]
 [ext_resource path="res://images/tiles.tres" type="TileSet" id=2]
-[ext_resource path="res://scenes/vehicle.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/up.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/character.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=6]
-[ext_resource path="res://images/white.png" type="Texture" id=7]
+[ext_resource path="res://scenes/up.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/character.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://images/white.png" type="Texture" id=6]
 
 [sub_resource type="CanvasItemShader" id=1]
 
@@ -87,21 +86,17 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Node2D" parent="Map" instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 58.6958, 131.78 )
-
-[node name="Up1" parent="Map" instance=ExtResource( 4 )]
+[node name="Up1" parent="Map" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 175, 133 )
 transform/rot = -90.1608
 
-[node name="Character" parent="Map" instance=ExtResource( 5 )]
+[node name="Character" parent="Map" instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 111.232, 91.0793 )
+transform/pos = Vector2( 48.4545, 134.002 )
 collision/mask = 2
 
-[node name="Player" parent="Map" instance=ExtResource( 6 )]
+[node name="Player" parent="Map" instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 145.647, 103.268 )
 collision/mask = 2
@@ -118,7 +113,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 320.0
 margin/bottom = 180.0
-texture = ExtResource( 7 )
+texture = ExtResource( 6 )
 expand = true
 stretch_mode = 0
 __meta__ = {

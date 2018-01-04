@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=1]
+[gd_scene load_steps=23 format=1]
 
 [ext_resource path="res://scenes/character.gd" type="Script" id=1]
 [ext_resource path="res://images/hip.png" type="Texture" id=2]
@@ -29,6 +29,11 @@ length = 19.6703
 
 custom_solver_bias = 0.0
 points = Vector2Array( 3, 10, 3, 0, 6, 0, 6, 10 )
+
+[sub_resource type="ConvexPolygonShape2D" id=13]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 5, 10, 5, 4, 6, 4, 6, 10 )
 
 [sub_resource type="Animation" id=5]
 
@@ -2853,7 +2858,6 @@ __meta__ = {
 
 [node name="AreaUp" type="Area2D" parent="."]
 
-editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 4 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -2862,6 +2866,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
+collision/layers = 0
 __meta__ = {
 "_edit_lock_": true
 }
@@ -2872,6 +2877,61 @@ build_mode = 0
 polygon = Vector2Array( 6, 10, 6, 0, 3, 0, 3, 10 )
 shape_range = Vector2( 0, 0 )
 trigger = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AreaLeft" type="Area2D" parent="."]
+
+transform/pos = Vector2( -4, 0 )
+input/pickable = true
+shapes/0/shape = SubResource( 13 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision/layers = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionLeft" type="CollisionPolygon2D" parent="AreaLeft"]
+
+build_mode = 0
+polygon = Vector2Array( 6, 10, 6, 4, 5, 4, 5, 10 )
+shape_range = Vector2( 0, 0 )
+trigger = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AreaRight" type="Area2D" parent="."]
+
+transform/pos = Vector2( 2, 0 )
+input/pickable = true
+shapes/0/shape = SubResource( 13 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision/layers = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionRight" type="CollisionPolygon2D" parent="AreaRight"]
+
+build_mode = 0
+polygon = Vector2Array( 6, 10, 6, 4, 5, 4, 5, 10 )
+shape_range = Vector2( 0, 0 )
+trigger = true
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 
@@ -2896,8 +2956,7 @@ autoplay = ""
 transform/pos = Vector2( 4.5, 11.5 )
 z/z = 3
 __meta__ = {
-"_edit_ik_": true,
-"_edit_lock_": true
+"_edit_ik_": true
 }
 
 [node name="hip" type="Sprite" parent="Sprite"]

@@ -24,14 +24,18 @@ extends RigidBody2D
 # -Friction cant be used, so floor velocity must be considered
 #  for moving platforms.
 
-enum {STATE_GROUND}
+enum {STATE_GROUND, STATE_AIR, STATE_WALLSLIDE, STATE_SMASHDOWN, STATE_SOMERSAULT}
 
 # Member variables
+
+var state = STATE_AIR
+var wallslide_k = 0.2
+var smashdown_speed = 250.0
+
 var anim = ""
 var siding_left = false
 var jumping = false
 var stopping_jump = false
-var shooting = false
 var on_floor = false
 
 var crouching = false setget setCrouching, getCrouching
@@ -43,17 +47,12 @@ var WALK_MAX_VELOCITY_STAY = 100.0
 var WALK_MAX_VELOCITY = WALK_MAX_VELOCITY_STAY
 var AIR_ACCEL = 400.0
 var AIR_DEACCEL = 400.0
-var JUMP_VELOCITY = 110.0
+var JUMP_VELOCITY = 250#110.0
 var STOP_JUMP_FORCE = 900.0
 
 var MAX_FLOOR_AIRBORNE_TIME = 0.07
 
 var airborne_time = 1e20
-var shoot_time = 1e20
-
-var MAX_SHOOT_POSE_TIME = 0.3
-
-#var bullet = preload("res://bullet.tscn")
 
 var floor_h_velocity = 0.0
 var enemy
@@ -113,14 +112,6 @@ func _integrate_forces(s):
 	if(self.crouching):
 		jump = false
 	var shoot = c_shoot
-	#var spawn = Input.is_action_pressed("spawn")
-	
-	"""if spawn:
-		var e = enemy.instance()
-		var p = get_pos()
-		p.y = p.y - 100
-		e.set_pos(p)
-		get_parent().add_child(e)"""
 	
 	# Deapply prev floor velocity
 	lv.x -= floor_h_velocity
@@ -135,28 +126,6 @@ func _integrate_forces(s):
 		if (ci.dot(Vector2(0, -1)) > 0.6):
 			found_floor = true
 			floor_index = x
-	
-	# A good idea when impementing characters of all kinds,
-	# compensates for physics imprecission, as well as human reaction delay.
-	if (shoot and not shooting):
-		shoot_time = 0
-		#var bi = bullet.instance()
-		var ss
-		if (siding_left):
-			ss = -1.0
-		else:
-			ss = 1.0
-		#var pos = get_pos() + get_node("bullet_shoot").get_pos()*Vector2(ss, 1.0)
-		
-		#bi.set_pos(pos)
-		#get_parent().add_child(bi)
-		
-		#bi.set_linear_velocity(Vector2(800.0*ss, -80))
-		#get_node("sprite/smoke").set_emitting(true)
-		#get_node("sound").play("shoot")
-		#PS2D.body_add_collision_exception(bi.get_rid(), get_rid()) # Make bullet and this not collide
-	else:
-		shoot_time += step
 	
 	if (found_floor):
 		airborne_time = 0.0
@@ -189,6 +158,8 @@ func _integrate_forces(s):
 	#get_node("AnimationTreePlayer").transition_node_set_current("transition_jump", 0)
 	if (on_floor):
 		# Process logic when character is on floor
+		state = STATE_GROUND
+		
 		if (move_left and not move_right):
 			if (lv.x > -WALK_MAX_VELOCITY):
 				lv.x -= WALK_ACCEL*step
@@ -215,51 +186,40 @@ func _integrate_forces(s):
 		elif (lv.x > 0 and move_right):
 			new_siding_left = false
 		if (jumping):
-			#new_anim = "jumping"
 			get_node("AnimationTreePlayer").transition_node_set_current("transition_jump", 1)
 		elif (abs(lv.x) < 0.1) and anim != "crouch_stay" and anim != "stay_crouch":
-			#if (shoot_time < MAX_SHOOT_POSE_TIME):
-			#	new_anim = "stay_weapon"
-			#else:
 			new_anim = "idle"
 			get_node("AnimationTreePlayer").transition_node_set_current("transition_jump", 0)
 			get_node("AnimationTreePlayer").transition_node_set_current("transition", 0)
 			get_node("AnimationTreePlayer").transition_node_set_current("transition_crouch", 0)
 		else:
-			#if (shoot_time < MAX_SHOOT_POSE_TIME):
-			#	new_anim = "run_weapon"
-			#else:
 			new_anim = "run"
 			get_node("AnimationTreePlayer").transition_node_set_current("transition_jump", 0)
 			get_node("AnimationTreePlayer").transition_node_set_current("transition", 1)
 			get_node("AnimationTreePlayer").transition_node_set_current("transition_crouch", 1)
 	else:
 		# Process logic when the character is in the air
-		if (move_left and not move_right):
-			if (lv.x > -WALK_MAX_VELOCITY):
-				lv.x -= AIR_ACCEL*step
-		elif (move_right and not move_left):
-			if (lv.x < WALK_MAX_VELOCITY):
-				lv.x += AIR_ACCEL*step
-		else:
-			var xv = abs(lv.x)
-			xv -= AIR_DEACCEL*step
-			if (xv < 0):
-				xv = 0
-			lv.x = sign(lv.x)*xv
+		if(state != STATE_SMASHDOWN):
+			state = STATE_AIR
+			if(c_down):
+				state = STATE_SMASHDOWN
+			else:
+				if !jumping and (move_left and get_node("AreaLeft").get_overlapping_bodies().size() > 0) or (move_right and get_node("AreaRight").get_overlapping_bodies().size() > 0):
+					state = STATE_WALLSLIDE
+				if (move_left and not move_right):
+					if (lv.x > -WALK_MAX_VELOCITY):
+						lv.x -= AIR_ACCEL*step
+				elif (move_right and not move_left):
+					if (lv.x < WALK_MAX_VELOCITY):
+						lv.x += AIR_ACCEL*step
+				else:
+					var xv = abs(lv.x)
+					xv -= AIR_DEACCEL*step
+					if (xv < 0):
+						xv = 0
+					lv.x = sign(lv.x)*xv
 		
-		#new_anim = "jumping"
 		get_node("AnimationTreePlayer").transition_node_set_current("transition_jump", 1)
-		"""if (lv.y < 0):
-			if (shoot_time < MAX_SHOOT_POSE_TIME):
-				new_anim = "jumping_weapon"
-			else:
-				new_anim = "jumping"
-		else:
-			if (shoot_time < MAX_SHOOT_POSE_TIME):
-				new_anim = "falling_weapon"
-			else:
-				new_anim = "falling" """
 	
 	# Update siding
 	if (new_siding_left != siding_left):
@@ -283,16 +243,20 @@ func _integrate_forces(s):
 		anim = new_anim
 		#get_node("Animation").play(anim)
 	
-	shooting = shoot
-	
 	# Apply floor velocity
 	if (found_floor):
 		floor_h_velocity = s.get_contact_collider_velocity_at_pos(floor_index).x
 		lv.x += floor_h_velocity
 	
 	# Finally, apply gravity and set back the linear velocity
-	lv += s.get_total_gravity()*step
-	s.set_linear_velocity(lv)
+	if(state == STATE_SMASHDOWN):
+		s.set_linear_velocity(Vector2(0, smashdown_speed))
+	else:
+		var k = 1.0
+		if(state == STATE_WALLSLIDE):
+			k = wallslide_k
+		lv += s.get_total_gravity() * step * k
+		s.set_linear_velocity(lv)
 
 
 func _ready():
