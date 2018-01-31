@@ -30,14 +30,13 @@ length = 19.6703
 custom_solver_bias = 0.0
 points = Vector2Array( 3, 10, 3, 0, 6, 0, 6, 10 )
 
-[sub_resource type="ConvexPolygonShape2D" id=13]
+[sub_resource type="ConvexPolygonShape2D" id=5]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 5, 10, 5, 4, 6, 4, 6, 10 )
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 
-resource/name = "crouch_stay"
 length = 1.0
 loop = false
 step = 0.1
@@ -402,9 +401,8 @@ tracks/35/keys = {
 "values": [ 173.959, 13.501 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 
-resource/name = "idle"
 length = 1.75
 loop = true
 step = 0.25
@@ -769,9 +767,8 @@ tracks/35/keys = {
 "values": [ 13.501 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 
-resource/name = "idle_crouch"
 length = 1.0
 loop = false
 step = 0.1
@@ -1316,7 +1313,7 @@ tracks/53/keys = {
 "values": [  ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 
 length = 1.75
 loop = false
@@ -1682,14 +1679,13 @@ tracks/35/keys = {
 "values": [ 48.5234 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 
-resource/name = "nothing"
 length = 1.0
 loop = false
 step = 0.1
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 
 length = 1.4
 loop = true
@@ -2055,7 +2051,7 @@ tracks/35/keys = {
 "values": [ 13.501, 16.2948, -8.30154, -17.7279, 15.2972, 58.9645, 25.2936, 13.501 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=12]
 
 length = 1.75
 loop = true
@@ -2421,7 +2417,7 @@ tracks/35/keys = {
 "values": [ 173.959, 175.625, 145.761, 130.883, 102.676, 72.307, 116.672 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 
 length = 1.0
 loop = false
@@ -2885,7 +2881,7 @@ __meta__ = {
 
 transform/pos = Vector2( -4, 0 )
 input/pickable = true
-shapes/0/shape = SubResource( 13 )
+shapes/0/shape = SubResource( 5 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = true
 gravity_vec = Vector2( 0, 1 )
@@ -2911,7 +2907,7 @@ __meta__ = {
 
 transform/pos = Vector2( 2, 0 )
 input/pickable = true
-shapes/0/shape = SubResource( 13 )
+shapes/0/shape = SubResource( 5 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = true
 gravity_vec = Vector2( 0, 1 )
@@ -2938,14 +2934,14 @@ __meta__ = {
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/crouch_stay = SubResource( 5 )
-anims/idle = SubResource( 6 )
-anims/idle_crouch = SubResource( 7 )
-anims/jumping = SubResource( 8 )
-anims/nothing = SubResource( 9 )
-anims/run = SubResource( 10 )
-anims/run_crouch = SubResource( 11 )
-anims/stay_crouch = SubResource( 12 )
+anims/crouch_stay = SubResource( 6 )
+anims/idle = SubResource( 7 )
+anims/idle_crouch = SubResource( 8 )
+anims/jumping = SubResource( 9 )
+anims/nothing = SubResource( 10 )
+anims/run = SubResource( 11 )
+anims/run_crouch = SubResource( 12 )
+anims/stay_crouch = SubResource( 13 )
 playback/active = true
 playback/speed = 4.0
 blend_times = [  ]
@@ -2964,7 +2960,6 @@ __meta__ = {
 editor/display_folded = true
 transform/pos = Vector2( 3.72529e-09, 0 )
 transform/rot = 3.56977
-transform/scale = Vector2( 1, 1 )
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_ik_": true
@@ -3199,9 +3194,14 @@ base_path = NodePath("..")
 master_player = NodePath("../Animation")
 data = {
 "active": false,
-"connections": [ "scale", "out", 0, "anim 2", "transition", 0, "anim 4", "transition", 1, "oneshot", "oneshot2", 0, "crouch_stay", "oneshot2", 1, "transition", "transition2", 0, "transition_crouch", "transition2", 1, "transition2", "transition_jump", 0, "jump", "transition_jump", 1, "transition_jump", "oneshot", 0, "stay_crouch", "oneshot", 1, "anim 3", "transition_crouch", 0, "scale 2", "transition_crouch", 1, "anim 5", "scale 2", 0, "oneshot2", "scale", 0 ],
+"connections": [ "oneshot2", "scale", 0, "scale", "out", 0, "anim 2", "transition", 0, "anim 4", "transition", 1, "oneshot", "oneshot2", 0, "crouch_stay", "oneshot2", 1, "transition", "transition2", 0, "transition_crouch", "transition2", 1, "transition2", "transition_jump", 0, "jump", "transition_jump", 1, "anim 3", "transition_crouch", 0, "scale 2", "transition_crouch", 1, "anim 5", "scale 2", 0, "transition_jump", "oneshot", 0, "stay_crouch", "oneshot", 1 ],
 "master": NodePath("../Animation"),
 "nodes": [ {
+"id": "scale",
+"pos": Vector2( 725, 21 ),
+"scale": 4.0,
+"type": "timescale"
+}, {
 "id": "out",
 "pos": Vector2( 833, 24 ),
 "type": "output"
@@ -3215,6 +3215,18 @@ data = {
 } ],
 "type": "transition",
 "xfade": 0.0
+}, {
+"filter": [  ],
+"from": "crouch_stay",
+"id": "crouch_stay",
+"pos": Vector2( 475, 310 ),
+"type": "animation"
+}, {
+"filter": [  ],
+"from": "stay_crouch",
+"id": "stay_crouch",
+"pos": Vector2( 342, 241 ),
+"type": "animation"
 }, {
 "autorestart": false,
 "autorestart_delay": 1.0,
@@ -3238,12 +3250,6 @@ data = {
 "xfade": 0.0
 }, {
 "filter": [  ],
-"from": "stay_crouch",
-"id": "stay_crouch",
-"pos": Vector2( 342, 241 ),
-"type": "animation"
-}, {
-"filter": [  ],
 "from": "jumping",
 "id": "jump",
 "pos": Vector2( 592, 194 ),
@@ -3259,16 +3265,31 @@ data = {
 "type": "transition",
 "xfade": 0.0
 }, {
-"filter": [  ],
-"from": "idle_crouch",
-"id": "anim 3",
-"pos": Vector2( 5, 236 ),
-"type": "animation"
+"id": "transition_crouch",
+"pos": Vector2( 159, 254 ),
+"transitions": [ {
+"auto_advance": false
+}, {
+"auto_advance": false
+} ],
+"type": "transition",
+"xfade": 0.0
 }, {
 "filter": [  ],
 "from": "idle",
 "id": "anim 2",
 "pos": Vector2( 5, 39 ),
+"type": "animation"
+}, {
+"id": "scale 2",
+"pos": Vector2( 108, 186 ),
+"scale": 0.5,
+"type": "timescale"
+}, {
+"filter": [  ],
+"from": "idle_crouch",
+"id": "anim 3",
+"pos": Vector2( 5, 236 ),
 "type": "animation"
 }, {
 "autorestart": false,
@@ -3283,42 +3304,16 @@ data = {
 "type": "oneshot"
 }, {
 "filter": [  ],
-"from": "run",
-"id": "anim 4",
-"pos": Vector2( 5, 131 ),
-"type": "animation"
-}, {
-"filter": [  ],
-"from": "crouch_stay",
-"id": "crouch_stay",
-"pos": Vector2( 475, 310 ),
-"type": "animation"
-}, {
-"id": "transition_crouch",
-"pos": Vector2( 159, 254 ),
-"transitions": [ {
-"auto_advance": false
-}, {
-"auto_advance": false
-} ],
-"type": "transition",
-"xfade": 0.0
-}, {
-"id": "scale 2",
-"pos": Vector2( 108, 186 ),
-"scale": 0.5,
-"type": "timescale"
-}, {
-"filter": [  ],
 "from": "run_crouch",
 "id": "anim 5",
 "pos": Vector2( 5, 327 ),
 "type": "animation"
 }, {
-"id": "scale",
-"pos": Vector2( 725, 21 ),
-"scale": 4.0,
-"type": "timescale"
+"filter": [  ],
+"from": "run",
+"id": "anim 4",
+"pos": Vector2( 5, 131 ),
+"type": "animation"
 } ]
 }
 

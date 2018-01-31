@@ -30,7 +30,7 @@ enum {STATE_GROUND, STATE_AIR, STATE_WALLSLIDE, STATE_SMASHDOWN, STATE_SOMERSAUL
 
 var state = STATE_AIR
 var wallslide_k = 0.2
-var smashdown_speed = 250.0
+var smashdown_speed = 200.0
 
 var anim = ""
 var siding_left = false
@@ -201,7 +201,7 @@ func _integrate_forces(s):
 		# Process logic when the character is in the air
 		if(state != STATE_SMASHDOWN):
 			state = STATE_AIR
-			if(c_down):
+			if(!jump and c_down):
 				state = STATE_SMASHDOWN
 			else:
 				if !jumping and (move_left and get_node("AreaLeft").get_overlapping_bodies().size() > 0) or (move_right and get_node("AreaRight").get_overlapping_bodies().size() > 0):
